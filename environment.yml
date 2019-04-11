@@ -1,0 +1,4 @@
+name: quantuminspire
+dependencies:
+  - qiskit
+  - projectq
