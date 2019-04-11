@@ -3,9 +3,10 @@ channels:
   - conda-forge
 dependencies:
   - numpy
-  - coreapi
   - pytest
   - matplotlib>=2.1
-  - quantuminspire
-  - qiskit
-  - projectq
+  - pip:
+    - coreapi
+    - quantuminspire
+    - qiskit
+    - projectq
