@@ -3,15 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Quantum Technology Toolbox
-==========================
+Quantum Inspire
+===============
 
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-Hello, and welcome to the documentation of Quantum Technology Toolbox!
+Hello, and welcome to the documentation of Quantum Inspire!
    
 Quantum Technology Toolbox (QTT) is a Python package for performing measurements and calibration of spin-qubits. It was developed initially at `QuTech <http://qutech.nl>`_,
 an advanced research center for quantum computing and quantum internet. QuTech is a collaboration founded by the Delft University of Technology (`TU Delft <https://www.tudelft.nl/en>`_) and Netherlands Organisation for Applied Scientific Research (`TNO <https://www.tno.nl/en>`_).
@@ -40,7 +35,9 @@ Documentation
 .. toctree::
    :maxdepth: 2
 
-   algorithms
+   introduction
+   sourcecode
+   examplenotebook
    
 
     
