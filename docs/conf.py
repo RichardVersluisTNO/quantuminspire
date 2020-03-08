@@ -45,7 +45,7 @@ if 0:
 
     # Document Python Code
     autoapi_type = 'python'
-    autoapi_dirs = '../qtt'
+    autoapi_dirs = '../quantuminspire'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -89,7 +89,7 @@ source_suffix = ['.rst', '.md']  # need package recommonmark
 master_doc = 'index'
 
 # General information about the project.
-project = 'test'
+project = 'Quantum Inspire'
 copyright = 'testing'
 author = 'Tester'
 
@@ -128,9 +128,9 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', 'legacy.py', '.DS_Store', 'untitled.*py',
-                    'notebooks/.ipynb_checkpoints', '../src/qtt/loggingGUI.py', '../src/qtt/debug.py',
-                    '../src/qtt/legacy.py', 'src/qtt/scans.py', '../src/qtt/deprecated/*']
+# exclude_patterns = ['_build', 'Thumbs.db', 'legacy.py', '.DS_Store', 'untitled.*py',
+#                     'notebooks/.ipynb_checkpoints', '../src/qtt/loggingGUI.py', '../src/qtt/debug.py',
+#                     '../src/qtt/legacy.py', 'src/qtt/scans.py', '../src/qtt/deprecated/*']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -143,8 +143,8 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
-html_theme = 'classic'
+# html_theme = 'alabaster'
+# html_theme = 'classic'
 html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -179,7 +179,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'qttdoc'
+htmlhelp_basename = 'quantuminspirehelp'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -204,36 +204,36 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'qtt.tex', 'qtt Documentation',
-     'Pieter Eendebak', 'manual'),
-]
+# latex_documents = [
+#     (master_doc, 'qtt.tex', 'qtt Documentation',
+#      'Pieter Eendebak', 'manual'),
+# ]
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'qtt', 'qtt Documentation',
-     [author], 1)
-]
+# man_pages = [
+#     (master_doc, 'qtt', 'qtt Documentation',
+#      [author], 1)
+# ]
 
 # -- Options for Texinfo output -------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'qtt', 'qtt Documentation',
-     author, 'qtt', 'Toolbox for quantum dot measurements and analysis.',
-     'Miscellaneous'),
-]
+# texinfo_documents = [
+#     (master_doc, 'qtt', 'qtt Documentation',
+#      author, 'qtt', 'Toolbox for quantum dot measurements and analysis.',
+#      'Miscellaneous'),
+# ]
 
-intersphinx_mapping = {
-    'matplotlib': ('http://matplotlib.org/', None),
-    'python': ('https://docs.python.org/3.6', None),
-    'numpy': ('https://docs.scipy.org/doc/numpy', None)
-}
+# intersphinx_mapping = {
+#     'matplotlib': ('http://matplotlib.org/', None),
+#     'python': ('https://docs.python.org/3.6', None),
+#     'numpy': ('https://docs.scipy.org/doc/numpy', None)
+# }
 
 if rtd:
     import matplotlib
@@ -252,7 +252,7 @@ if rtd:
         except:
             pass
 
-if 1:
+if True:
     def run_apidoc(_):
         import os
         print('run_apidoc: current dir is %s' % os.getcwd())
@@ -261,8 +261,8 @@ if 1:
 
         ignore_paths = [
             '../src/quantuminspire/version.py',
-            '../src/quantuminspire/projectq',
-            '../src/quantuminspire/qiskit'
+            # '../src/quantuminspire/projectq',
+            # '../src/quantuminspire/qiskit'
         ]
 
         argv = [

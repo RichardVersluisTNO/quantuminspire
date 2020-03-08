@@ -1,76 +1,227 @@
 Introduction
-============
+===================
 
-Welcome to the QTT framework. This introduction will shortly introduce the framework, and it will guide you through the structure, installation process and how to contribute. We look forward to working with you!
+*Note: this SDK is made available as a public beta, please report any
+issues or bugs in the github issue tracker.*
 
-Quantum Technology Toolbox
---------------------------
+The Quantum Inspire platform allows to execute quantum algorithms using
+the cQASM language.
 
-Quantum Technology Toolbox (QTT) is a Python-based framework developed initialy by `QuTech <https://www.qutech.nl/>`_ for the tuning and calibration of quantum dots and spin qubits.
-QuTech is an advanced research center based in Delft, the Netherlands, for quantum computing and quantum internet.
-It is a collaboration founded by the Delft University of Technology (`TU Delft <https://www.tudelft.nl/en>`_) and the Netherlands Organisation for Applied Scientific Research (`TNO <https://www.tno.nl/en>`_).
+The software development kit (SDK) for the Quantum Inspire platform
+consists of:
 
-The experiments done on spin-qubits at QuTech make use of the QTT framework to add automated funcionalities and algorithms to their measurement code. 
-This paves the way to a more time-efficient, user-friendly and robust code, making more complex research on larger systems possible.
-We invite you to use and contribute to QTT. Below we will guide you through the installation.
+-  An API for the `Quantum Inspire <https://www.quantum-inspire.com/>`__
+   platform (the QuantumInspireAPI class);
+-  Backends for:
+-  the `ProjectQ
+   SDK <https://github.com/ProjectQ-Framework/ProjectQ>`__;
+-  the `Qiskit SDK <https://qiskit.org/>`__.
 
-QTT is the framework on which you can base your measurement and analysis scripts, and QTT itself is based on `Qcodes <https://github.com/qdev-dk/Qcodes>`_. 
+For more information on Quantum Inspire see
+https://www.quantum-inspire.com/. Detailed information on cQASM can be
+found in the Quantum Inspire `knowledge
+base <https://www.quantum-inspire.com/kbase/advanced-guide/>`__.
 
- 
 Installation
 ------------
 
-QTT is compatible with Python 3.5+.
+The Quantum Inspire SDK can be installed from PyPI via pip:
 
-QTT can be installed as a pip package:
+::
 
-.. code-block:: console
+    $ pip install quantuminspire
 
-    $ pip install --upgrade qtt 
+In addition, to use Quantum Inspire through Qiskit or ProjectQ, install
+either or both of the qiskit and projectq packages:
 
-For development we advice to install from source. First retrieve the source code using git, and then install from the qtt source directory using the command:
+::
 
-.. code-block:: console
-   
-   $ python setup.py develop
+    $ pip install qiskit
+    $ pip install projectq
 
-For for Vandersypen research group there are more detailed instructions, read the file `INSTALL-spinqubits.md <https://github.com/VandersypenQutech/spin-projects/blob/master/INSTALL.md>`_ in the spin-projects repository.
+Installing from source
+~~~~~~~~~~~~~~~~~~~~~~
 
-Updating QTT
-------------
+The source for the SDK can also be found at Github. For the default
+installation execute:
 
-If you registered qtt with Python via ``python setup.py develop`` or ``pip install -e .``, all you need to do to get the latest code is open a terminal window pointing to anywhere inside the repository and run `git pull`.
+::
 
-If you installed qtt via the pip package you can run the pip install comment again:
+    $ git clone https://github.com/QuTech-Delft/quantuminspire
+    $ cd quantuminspire
+    $ pip install .
 
-.. code-block:: console
+This does not install ProjectQ or Qiskit, but will install the Quantum
+Inspire backends for those projects.
 
-    $ pip install --upgrade qtt
+If you want to include a specific SDK as a dependency, install with
+(e.g. for the ProjectQ backend):
 
-Usage
------
+::
 
-In QTT, we use GitHub for combined developing and python for scientific use. If you have some experience with scientific python you will be able to understand the code fairly easily. If not, we urge you to read through some lectures before using the QTT framework. For a general introduction see:
+    $ pip install .[projectq]
 
-* `Introduction to Github <https://guides.github.com/activities/hello-world/>`_
-* `Scientific python lectures <https://github.com/jrjohansson/scientific-python-lectures>`_
+To install both ProjectQ as well as Qiskit as a dependency:
 
-We advise to use the following settings when using QTT:
+::
 
-* If you use `Spyder <https://github.com/spyder-ide/spyder>`_ then use the following settings:
+    $ pip install .[qiskit,projectq]
 
-  - Use a ``IPython`` console and set the IPython backend graphics option to ``QT``. This ensures correctly displaying the ``ParameterViewer`` and ``DataBrowser``
-  - In ``Tools->Preferences->Console->Advanced settings`` uncheck the box ``Enable UMR``
+Running
+-------
 
-For the usage of algorithms or calibrations we point you to the documentation of those subjects.
+For example usage see the python scripts and Jupyter notebooks in the
+`docs/ <docs/>`__ directory when installed from source or the
+share/doc/quantuminspire/examples/ directory in the library root
+(Python’s sys.prefix for system installations; site.USER\_BASE for user
+installations) when installed from PyPI.
+
+For example, to run the ProjectQ example notebook after installing from
+source:
+
+::
+
+    cd docs
+    jupyter notebook example_projectq.ipynb
+
+Or to perform Grover's with the ProjectQ backend from a Python script:
+
+::
+
+    cd docs
+    python example_projectq_grover.py
+
+|Binder|
+
+Another way to browse and run the available notebooks is by clicking the
+'launch binder' button above.
+
+It is also possible to use the API through the QuantumInspireAPI object
+directly. This is for advanced users that really know what they are
+doing. The intention of the QuantumInspireAPI class is that it is used
+as a thin layer between existing SDK's such as ProjectQ and Qiskit, and
+is not primarily meant for general use. You may want to explore this if
+you intend to write a new backend for an existing SDK.
+
+A simple example to perform entanglement between two qubits by using the
+API wrapper directly:
+
+.. code:: python
+
+    from getpass import getpass
+    from coreapi.auth import BasicAuthentication
+    from quantuminspire.api import QuantumInspireAPI
+
+    print('Enter mail address')
+    email = input()
+
+    print('Enter password')
+    password = getpass()
+
+    server_url = r'https://api.quantum-inspire.com'
+    authentication = BasicAuthentication(email, password)
+    qi = QuantumInspireAPI(server_url, authentication)
+
+    qasm = '''version 1.0
+
+    qubits 2
+
+    H q[0]
+    CNOT q[0], q[1]
+    display
+    '''
+
+    backend_type = qi.get_backend_type_by_name('QX single-node simulator')
+    result = qi.execute_qasm(qasm, backend_type=backend_type, number_of_shots=1024)
+
+    if result.get('histogram', {}):
+        print(result['histogram'])
+    else:
+        reason = result.get('raw_text', 'No reason in result structure.')
+        print(f'Result structure does not contain proper histogram data. {reason}')
+
+Configure your token credentials for Quantum Inspire
+----------------------------------------------------
+
+1. Create a Quantum Inspire account if you do not already have one.
+2. Get an API token from the Quantum Inspire website.
+3. With your API token run:
+
+   .. code:: python
+
+       from quantuminspire.credentials import save_account
+       save_account('YOUR_API_TOKEN')
+
+   After calling save\_account(), your credentials will be stored on
+   disk. Those who do not want to save their credentials to disk should
+   use instead:
+
+   .. code:: python
+
+       from quantuminspire.credentials import enable_account
+       enable_account('YOUR_API_TOKEN')
+
+   and the token will only be active for the session.
+
+After calling save\_account() once or enable\_account() within your
+session, token authentication is done automatically when creating the
+Quantum Inspire API object.
+
+For Qiskit users this means:
+
+.. code:: python
+
+    from quantuminspire.qiskit import QI
+    QI.set_authentication()
+
+ProjectQ users do something like:
+
+.. code:: python
+
+    from quantuminspire.api import QuantumInspireAPI
+    qi = QuantumInspireAPI()
+
+To create a token authentication object yourself using the stored token
+you do:
+
+.. code:: python
+
+    from quantuminspire.credentials import get_token_authentication
+    auth = get_token_authentication()
+
+This ``auth`` can then be used to initialize the Quantum Inspire API
+object. ## Known issues
+
+-  Some test-cases call protected methods
+-  Known issues and common questions regarding the Quantum Inspire
+   platform can be found in the
+   `FAQ <https://www.quantum-inspire.com/faq/>`__.
+
+Bug reports
+-----------
+
+Please submit bug-reports `on the github issue
+tracker <https://github.com/QuTech-Delft/quantuminspire/issues>`__.
 
 Testing
 -------
 
-Tests for the qtt packages are contained in the subdirectory ``tests`` and as test functions (``test_*``) in
-the code. To run the tests you can run one of the commands below.
+Run all unit tests and collect the code coverage using:
 
-.. code-block:: console
+::
 
-    $ pytest
+    coverage run --source="./src/quantuminspire" -m unittest discover -s src/tests -t src -v
+    coverage report -m
 
+Note
+----
+
+If you are getting import errors related to ``tests.quantuminspire``
+when running the above commands after a ``pip install -e .``, as a
+workaround you should remove the package ``tests`` installed by older
+versions of ``marshmallow-polyfield`` (a Qiskit dependency):
+
+``rm -Rf env/lib/python3.6/site-packages/tests``
+
+.. |Binder| image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/QuTech-Delft/quantuminspire/master?filepath=docs

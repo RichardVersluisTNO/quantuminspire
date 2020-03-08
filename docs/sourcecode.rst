@@ -1,19 +1,15 @@
 Source code
 ============
 
-The source code for the algoritms can be found below:
+The source code for the algorithms
 
 .. autosummary::
 
+   quantuminspire.projectq
+   quantuminspire.qiskit
    quantuminspire.api
    quantuminspire.credentials
    quantuminspire.exceptions
    quantuminspire.job
-
-Example algorithms in notebooks
--------------------------------
-
-Most of the algorithms are documented in the :ref:`Example notebooks` section.
-
 
 Back to the :doc:`main page <index>`.
