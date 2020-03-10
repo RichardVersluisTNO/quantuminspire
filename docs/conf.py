@@ -235,22 +235,23 @@ latex_elements = {
 #     'numpy': ('https://docs.scipy.org/doc/numpy', None)
 # }
 
-if rtd:
-    import matplotlib
-
-    matplotlib.use('agg')
-
-    # check packages
-    import importlib
-
-    modules = ['skimage', 'matplotlib', 'cv2', 'PyQt5', 'pyqtgraph', 'qtpy', 'qcodes', 'qtt']
-    for module_name in modules:
-        print('loading module %s' % module_name)
-        m = importlib.import_module(module_name)
-        try:
-            print('  __version__: %s' % m.__version__)
-        except:
-            pass
+# if rtd:
+#     print('import matplotlib true')
+#     import matplotlib
+#
+#     matplotlib.use('agg')
+#
+#     # check packages
+#     import importlib
+#
+#     modules = ['skimage', 'matplotlib', 'cv2', 'PyQt5', 'pyqtgraph', 'qtpy', 'qcodes', 'qtt']
+#     for module_name in modules:
+#         print('loading module %s' % module_name)
+#         m = importlib.import_module(module_name)
+#         try:
+#             print('  __version__: %s' % m.__version__)
+#         except:
+#             pass
 
 if True:
     def run_apidoc(_):
