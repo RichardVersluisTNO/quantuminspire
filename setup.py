@@ -39,9 +39,9 @@ def get_long_description():
     return long_description
 
 
-rtd_requires = {"rtd": [
+rtd_requires = [
     'sphinx', 'sphinx_rtd_theme', 'nbsphinx', 'sphinx-automodapi'
-]}
+]
 
 setup(name='quantuminspire',
       description='SDK for the Quantum Inspire platform',
@@ -93,5 +93,5 @@ setup(name='quantuminspire',
       license='Apache 2.0',
       packages=['quantuminspire', 'quantuminspire.qiskit', 'quantuminspire.projectq'],
       install_requires=['pytest>=3.3.1', 'coverage>=4.5.1', 'matplotlib>=2.1',
-                        'coreapi>=2.3.3', 'numpy', 'jupyter', 'nbimporter', 'sklearn'],
-      extras_require={'qiskit': ["qiskit>=0.9.0"], 'projectq': ["projectq>=0.4"]}.update(rtd_requires))
+                        'coreapi>=2.3.3', 'numpy', 'jupyter', 'nbimporter', 'sklearn'] + rtd_requires,
+      extras_require={'qiskit': ["qiskit>=0.9.0"], 'projectq': ["projectq>=0.4"]})
