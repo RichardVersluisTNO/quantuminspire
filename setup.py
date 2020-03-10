@@ -94,4 +94,4 @@ setup(name='quantuminspire',
       packages=['quantuminspire', 'quantuminspire.qiskit', 'quantuminspire.projectq'],
       install_requires=['pytest>=3.3.1', 'coverage>=4.5.1', 'matplotlib>=2.1',
                         'coreapi>=2.3.3', 'numpy', 'jupyter', 'nbimporter', 'sklearn'],
-      extras_require={'qiskit': ["qiskit>=0.9.0"], 'projectq': ["projectq>=0.4"], extras_require})
+      extras_require={'qiskit': ["qiskit>=0.9.0"], 'projectq': ["projectq>=0.4"]}.update(rtd_requires))
